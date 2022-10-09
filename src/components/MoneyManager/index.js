@@ -23,11 +23,8 @@ class MoneyManager extends Component {
   state = {
     titleInput: '',
     amountInput: '',
-    typeInput: '',
+    typeInput: transactionTypeOptions[0].optionId,
     list: [],
-    balance: 0,
-    income: 0,
-    expenses: 0,
   }
 
   submittingTransaction = event => {
@@ -37,30 +34,59 @@ class MoneyManager extends Component {
     const newItem = {
       id: v4(),
       title: titleInput,
-      amount: amountInput,
+      amount: parseInt(amountInput),
       type: typeInput,
     }
     this.setState(prevState => ({
       list: [...prevState.list, newItem],
       titleInput: '',
       amountInput: '',
-      typeInput: '',
+      typeInput: transactionTypeOptions[0].optionId,
     }))
-    if (typeInput === 'Income') {
-      this.setState(prevState => ({
-        income: prevState.income + parseInt(amountInput),
-      }))
-      this.setState(prevState => ({
-        balance: prevState.balance + parseInt(amountInput),
-      }))
-    } else {
-      this.setState(prevState => ({
-        expenses: prevState.expenses + parseInt(amountInput),
-      }))
-      this.setState(prevState => ({
-        balance: prevState.balance - parseInt(amountInput),
-      }))
-    }
+  }
+
+  getExpenses = () => {
+    const {list} = this.state
+    let expensesAmount = 0
+
+    list.forEach(eachTransaction => {
+      if (eachTransaction.type === transactionTypeOptions[1].displayText) {
+        expensesAmount += eachTransaction.amount
+      }
+    })
+
+    return expensesAmount
+  }
+
+  getIncome = () => {
+    const {list} = this.state
+    let incomeAmount = 0
+    list.forEach(eachTransaction => {
+      if (eachTransaction.type === transactionTypeOptions[0].displayText) {
+        incomeAmount += eachTransaction.amount
+      }
+    })
+
+    return incomeAmount
+  }
+
+  getBalance = () => {
+    const {list} = this.state
+    let balanceAmount = 0
+    let incomeAmount = 0
+    let expensesAmount = 0
+
+    list.forEach(eachTransaction => {
+      if (eachTransaction.type === transactionTypeOptions[0].displayText) {
+        incomeAmount += eachTransaction.amount
+      } else {
+        expensesAmount += eachTransaction.amount
+      }
+    })
+
+    balanceAmount = incomeAmount - expensesAmount
+
+    return balanceAmount
   }
 
   onChangeTitle = event => {
@@ -77,11 +103,15 @@ class MoneyManager extends Component {
 
   deletingTransaction = id => {
     const {list} = this.state
-    this.setState({list: list.filter(each => each.id !== id)})
+    const remainingList = list.filter(each => id !== each.id)
+    this.setState({list: remainingList})
   }
 
   render() {
-    const {list, income, expenses, balance} = this.state
+    const {list} = this.state
+    const incomeAmount = this.getIncome()
+    const balanceAmount = this.getBalance()
+    const expensesAmount = this.getExpenses()
 
     return (
       <div className="bg">
@@ -93,7 +123,11 @@ class MoneyManager extends Component {
           </p>
         </div>
         <div className="moneyDetailsContainer">
-          <MoneyDetails income={income} expenses={expenses} balance={balance} />
+          <MoneyDetails
+            income={incomeAmount}
+            expenses={expensesAmount}
+            balance={balanceAmount}
+          />
         </div>
         <div className="transactionSessions">
           <div className="transactionForm">
@@ -139,12 +173,12 @@ class MoneyManager extends Component {
           <div className="transactionForm">
             <h1>History</h1>
             <div className="list">
-              <div className="listItems">
-                <p className="listHeadings">TITLE</p>
-                <p className="listHeadings">AMOUNT</p>
-                <p className="listHeadings">TYPE</p>
-              </div>
               <ul>
+                <li className="listItems">
+                  <p className="listHeadings">TITLE</p>
+                  <p className="listHeadings">AMOUNT</p>
+                  <p className="listHeadings">TYPE</p>
+                </li>
                 {list.map(each => (
                   <TransactionItems
                     title={each.title}

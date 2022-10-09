@@ -17,12 +17,16 @@ const TransactionItems = props => {
           <p className="addedListItem">{type}</p>
         </div>
         <div>
-          <button className="b" type="button">
+          <button
+            className="b"
+            type="button"
+            testid="delete"
+            onClick={onClickDelete}
+          >
             <img
               src="https://assets.ccbp.in/frontend/react-js/money-manager/delete.png"
               alt="delete"
-              className="imgg"
-              onClick={onClickDelete}
+              className="imgge"
             />
           </button>
         </div>
