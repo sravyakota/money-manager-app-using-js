@@ -50,7 +50,7 @@ class MoneyManager extends Component {
     let expensesAmount = 0
 
     list.forEach(eachTransaction => {
-      if (eachTransaction.type === transactionTypeOptions[1].displayText) {
+      if (eachTransaction.type === transactionTypeOptions[1].optionId) {
         expensesAmount += eachTransaction.amount
       }
     })
@@ -62,7 +62,7 @@ class MoneyManager extends Component {
     const {list} = this.state
     let incomeAmount = 0
     list.forEach(eachTransaction => {
-      if (eachTransaction.type === transactionTypeOptions[0].displayText) {
+      if (eachTransaction.type === transactionTypeOptions[0].optionId) {
         incomeAmount += eachTransaction.amount
       }
     })
@@ -77,7 +77,7 @@ class MoneyManager extends Component {
     let expensesAmount = 0
 
     list.forEach(eachTransaction => {
-      if (eachTransaction.type === transactionTypeOptions[0].displayText) {
+      if (eachTransaction.type === transactionTypeOptions[0].optionId) {
         incomeAmount += eachTransaction.amount
       } else {
         expensesAmount += eachTransaction.amount
@@ -108,7 +108,7 @@ class MoneyManager extends Component {
   }
 
   render() {
-    const {list} = this.state
+    const {list, titleInput, amountInput} = this.state
     const incomeAmount = this.getIncome()
     const balanceAmount = this.getBalance()
     const expensesAmount = this.getExpenses()
@@ -138,6 +138,7 @@ class MoneyManager extends Component {
                 <input
                   className="inputBox"
                   type="text"
+                  value={titleInput}
                   id="title"
                   onChange={this.onChangeTitle}
                 />
@@ -147,6 +148,7 @@ class MoneyManager extends Component {
                 <input
                   className="inputBox"
                   type="text"
+                  value={amountInput}
                   id="amount"
                   onChange={this.onChangeAmount}
                 />
