@@ -176,11 +176,12 @@ class MoneyManager extends Component {
             <h1>History</h1>
             <div className="list">
               <ul>
-                <li className="listItems">
+                <li className="listItems" key="header">
                   <p className="listHeadings">TITLE</p>
                   <p className="listHeadings">AMOUNT</p>
                   <p className="listHeadings">TYPE</p>
                 </li>
+                <hr className="h" />
                 {list.map(each => (
                   <TransactionItems
                     title={each.title}

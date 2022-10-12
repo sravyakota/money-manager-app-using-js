@@ -87,14 +87,21 @@
   flex-direction: column;
   justify-content: space-between;
   width: 500px;
+
   padding: 10px;
   border-style: solid;
   border-width: 1px;
 }
+.h {
+  width: 90%;
+  margin: 10px;
+}
 .listItems {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin-left: 0px;
+  margin-right: 50px;
 }
 .listHeadings {
   font-size: 16px;
