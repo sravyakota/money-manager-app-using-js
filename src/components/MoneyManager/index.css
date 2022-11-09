@@ -1,6 +1,5 @@
 /* Write your CSS here */
 .bg {
-  height: 150vh;
   padding: 40px;
   background-color: #ffffff;
   display: flex;
@@ -11,7 +10,7 @@
 .welcomeContainer {
   background-image: url('https://assets.ccbp.in/frontend/react-js/money-manager/money-manager-bg.png');
   height: 30vh;
-  width: 100%;
+  width: 90%;
   background-size: cover;
   border-radius: 15px;
   padding: 15px;
@@ -108,4 +107,18 @@
   font-weight: bold;
   font-family: 'roboto';
   margin: 10px;
+}
+@media only screen and (max-width: 767px) {
+  .transactionSessions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+  .moneyDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
 }

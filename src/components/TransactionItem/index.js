@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import './index.css'
 
 const TransactionItems = props => {
@@ -20,7 +21,7 @@ const TransactionItems = props => {
           <button
             className="b"
             type="button"
-            // testid="delete"
+            testid="delete"
             onClick={onClickDelete}
           >
             <img
